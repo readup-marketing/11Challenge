@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREE 5-Day Reading Challenge: Transform Your Child's 11+ Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .headline {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .subheadline {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #d4af37;
+            font-weight: 600;
+        }
+        
+        .urgency-text {
+            background: #d4af37;
+            color: #1b4332;
+            padding: 15px 30px;
+            border-radius: 10px;
+            display: inline-block;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .cta-box {
+            background: white;
+            color: #333;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-box h2 {
+            color: #1b4332;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #1b4332;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #1b4332;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #d4af37 0%, #1b4332 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+        }
+        
+        .guarantee-text {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .benefits-section {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            color: #1b4332;
+            margin-bottom: 50px;
+            font-weight: bold;
+        }
+        
+        .section-title span {
+            color: #d4af37;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #d4af37;
+        }
+        
+        .benefit-card h3 {
+            color: #1b4332;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .problem-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            color: white;
+        }
+        
+        .problem-list {
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: left;
+        }
+        
+        .problem-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #d4af37;
+        }
+        
+        .problem-item h3 {
+            color: #d4af37;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .solution-section {
+            padding: 80px 20px;
+            background: white;
+        }
+        
+        .bonus-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #d4af37 0%, #1b4332 100%);
+            color: white;
+        }
+        
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+        
+        .bonus-card {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .bonus-card h3 {
+            color: #1b4332;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .bonus-value {
+            color: #d4af37;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .final-cta-section {
+            padding: 80px 20px;
+        }
+        
+        .faq-section {
+            padding: 80px 20px;
+            background: white;
+        }
+        
+        .faq-item {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #d4af37;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: #1b4332;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .faq-answer {
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: #1b4332;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 2em;
+            }
+            
+            .subheadline {
+                font-size: 1.2em;
+            }
+            
+            .cta-box {
+                padding: 30px 20px;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
+        }
+        
+        /* Mailchimp honeypot field */
+        .mc-field-group.hidden {
+            position: absolute;
+            left: -5000px;
+        }
+        
+        /* Hide Mailchimp response divs initially */
+        #mce-error-response, #mce-success-response {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="headline">
+                Will Your Child Actually Stick With It? Find Out in Just 5 Days
+            </h1>
+            
+            <p class="subheadline">
+                Discover if Your Child Has the Commitment and Work Ethic for 11+ Success – Before You Invest Time and Money
+            </p>
+            
+            <div class="urgency-text">
+                ⚡ FREE 5-Day Reading Challenge Starts Immediately ⚡
+            </div>
+            
+            <div class="cta-box">
+                <h2>Join the FREE Challenge Now</h2>
+                <p style="margin-bottom: 20px;">Get instant access to Day 1 + all parent assessment tools</p>
+                
+                <!-- Mailchimp Form 1 -->
+                <form action="https://app.us17.list-manage.com/subscribe/post?u=83506bdc1b4e9598ba84cf727&amp;id=b222767eb6&amp;f_id=002e0ae3f0" method="post" id="signup-form-1" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                    <div class="form-group">
+                        <label for="mce-FNAME-1">Your First Name:</label>
+                        <input type="text" name="FNAME" id="mce-FNAME-1" placeholder="Enter your first name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mce-EMAIL-1">Your Email:</label>
+                        <input type="email" name="EMAIL" class="required email" id="mce-EMAIL-1" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <!-- Hidden Company field -->
+                    <input type="hidden" name="COMPANY" value="11+">
+                    
+                    <!-- Mailchimp honeypot -->
+                    <div class="mc-field-group hidden" aria-hidden="true">
+                        <input type="text" name="b_83506bdc1b4e9598ba84cf727_b222767eb6" tabindex="-1" value="">
+                    </div>
+                    
+                    <button type="submit" class="cta-button" name="subscribe" id="mc-embedded-subscribe-1">
+                        YES! START MY FREE CHALLENGE NOW →
+                    </button>
+                    
+                    <p class="guarantee-text">
+                        🔒 No credit card required. Instant access. Unsubscribe anytime.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="benefits-section">
+        <div class="container">
+            <h2 class="section-title">
+                What You'll Get In This <span>FREE</span> Challenge
+            </h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">📖</div>
+                    <h3>5 Days of Engaging Reading</h3>
+                    <p>An exciting adventure story specifically designed to assess 11+ readiness. Your child won't even realise they're being evaluated – they'll just enjoy the mystery at Thornwood Manor.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Daily Assessment Questions</h3>
+                    <p>Carefully crafted comprehension questions that reveal exactly where your child stands. You'll see their inference skills, vocabulary understanding, and analytical thinking in action.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3>Parent Assessment Guides</h3>
+                    <p>Know exactly what to look for and how to interpret your child's responses. By Day 5, you'll have a clear picture of their readiness level.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">✅</div>
+                    <h3>Commitment Test Built-In</h3>
+                    <p>If your child can't maintain 15-20 minutes daily for just 5 days, you've learned something crucial before spending on tutoring. This simple test could save you thousands.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🗺️</div>
+                    <h3>Clear Next Steps</h3>
+                    <p>Based on how your child performs, you'll receive specific guidance on whether to pursue tutoring, build foundation skills first, or explore alternative school options.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Avoid Costly Mistakes</h3>
+                    <p>Find out NOW if intensive tutoring is premature. Discover if your child needs foundational work first. Make informed decisions instead of expensive guesses.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="problem-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">
+                The Problem Most Parents Face...
+            </h2>
+            
+            <div class="problem-list">
+                <div class="problem-item">
+                    <h3>❌ The Expensive Guessing Game</h3>
+                    <p>You're considering paying £50-100/hour for tutoring, but you have no idea if your child is even ready for it. You might waste thousands on the wrong approach.</p>
+                </div>
+                
+                <div class="problem-item">
+                    <h3>❌ The Commitment Unknown</h3>
+                    <p>Will your child stick with the daily practice needed? You won't know until you've already paid for weeks of tutoring and watched them struggle with consistency.</p>
+                </div>
+                
+                <div class="problem-item">
+                    <h3>❌ The Ability Mystery</h3>
+                    <p>Does your child have the foundational skills to benefit from 11+ prep? Or do they need to build basics first? Most parents discover the answer too late.</p>
+                </div>
+                
+                <div class="problem-item">
+                    <h3>❌ The Time Pressure</h3>
+                    <p>September 2026 feels far away, but it's not. If you start down the wrong path now, there won't be time to course-correct later.</p>
+                </div>
+                
+                <div class="problem-item">
+                    <h3>❌ The Information Overload</h3>
+                    <p>Everyone has an opinion: hire a tutor, buy workbooks, join a class, do it yourself. But what does YOUR CHILD actually need? You're paralyzed by conflicting advice.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <h3 style="font-size: 2em; color: #d4af37; margin-bottom: 20px;">There's a Better Way...</h3>
+                <p style="font-size: 1.3em; max-width: 800px; margin: 0 auto;">
+                    Before you invest a single pound in tutoring or intensive prep, start with this simple 5-day assessment. It costs you nothing but 15-20 minutes per day, yet it could save you thousands in misdirected effort.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="solution-section">
+        <div class="container">
+            <h2 class="section-title">
+                Here's How The Challenge Works
+            </h2>
+            
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid #d4af37;">
+                    <h3 style="color: #1b4332; font-size: 1.8em; margin-bottom: 15px;">📧 Day 1: Instant Access</h3>
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        As soon as you sign up, you receive the first chapter of "The Mystery at Thornwood Manor" directly to your inbox. Your child begins their adventure immediately. You also get the complete Parent Assessment Guide to know what to watch for.
+                    </p>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid #d4af37;">
+                    <h3 style="color: #1b4332; font-size: 1.8em; margin-bottom: 15px;">📚 Days 2-5: Daily Story Progression</h3>
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        Each morning, a new chapter arrives. The story becomes more engaging, the mystery deepens, and the questions become slightly more challenging. You're observing: Does your child maintain interest? Can they handle increasingly complex material? Are they working independently or needing constant support?
+                    </p>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid #d4af37;">
+                    <h3 style="color: #1b4332; font-size: 1.8em; margin-bottom: 15px;">🎯 Day 5: The Clarity Moment</h3>
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        By the final day, you have real evidence. Did they complete all 5 days? How did they handle the questions? Did they need help or work independently? Were they engaged or resistant? This tells you EVERYTHING you need to know about next steps.
+                    </p>
+                </div>
+                
+                <div style="background: #1b4332; color: white; padding: 40px; border-radius: 15px; text-align: center;">
+                    <h3 style="font-size: 2em; margin-bottom: 20px; color: #d4af37;">The Beauty of This Approach:</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">
+                        You discover your child's readiness through <strong>real behavior</strong>, not guesswork. You see their actual commitment level, not what they promise. You observe their genuine ability, not what you hope for. And you get this insight for FREE, with just 15-20 minutes per day, before making any expensive commitments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bonus-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">
+                Here's Everything You Get (100% FREE)
+            </h2>
+            
+            <div class="bonus-grid">
+                <div class="bonus-card">
+                    <h3>📖 5-Day Reading Adventure</h3>
+                    <p class="bonus-value">Value: £47</p>
+                    <p>"The Mystery at Thornwood Manor" - An engaging story that captivates your child while revealing their true 11+ readiness level. Each chapter builds excitement while testing crucial comprehension skills.</p>
+                </div>
+                
+                <div class="bonus-card">
+                    <h3>❓ Daily Assessment Questions</h3>
+                    <p class="bonus-value">Value: £37</p>
+                    <p>Carefully crafted questions for each chapter that assess inference, vocabulary, and analytical thinking. See exactly where your child excels and where they need development.</p>
+                </div>
+                
+                <div class="bonus-card">
+                    <h3>🎯 BONUS: Decision Matrix</h3>
+                    <p class="bonus-value">Value: £27</p>
+                    <p>A clear framework to interpret your child's performance and get specific next-step recommendations. Know exactly whether to pursue tutoring, build foundations first, or continue with independent practice.</p>
+                </div>
+            </div>
+            
+            <div style="background: white; color: #333; padding: 40px; border-radius: 15px; margin-top: 50px; text-align: center;">
+                <h3 style="color: #1b4332; font-size: 2em; margin-bottom: 20px;">Total Value: £111</h3>
+                <h2 style="color: #d4af37; font-size: 3em; margin-bottom: 20px;">Your Price: £0</h2>
+                <p style="font-size: 1.2em; line-height: 1.6;">
+                    Everything you need to assess your child's 11+ readiness - completely free. No credit card required. No hidden fees. Just sign up and start immediately.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="final-cta-section" style="background: white; padding: 80px 20px;">
+        <div class="container">
+            <h2 class="section-title">
+                Ready to Find Out If Your Child Can Really Do This?
+            </h2>
+            
+            <div style="max-width: 800px; margin: 0 auto; text-align: center; margin-bottom: 50px;">
+                <p style="font-size: 1.3em; color: #333; line-height: 1.8; margin-bottom: 30px;">
+                    Look, here's the truth: I can't tell you if your child is ready for the 11+. No one can – until you actually put them through a structured, daily challenge and observe what happens.
+                </p>
+                
+                <p style="font-size: 1.3em; color: #333; line-height: 1.8; margin-bottom: 30px;">
+                    You can spend weeks agonising over the decision. You can consult with friends whose children are in different situations. You can read endless forum posts from parents in various stages of the 11+ journey.
+                </p>
+                
+                <p style="font-size: 1.3em; color: #333; line-height: 1.8; margin-bottom: 30px;">
+                    OR...
+                </p>
+                
+                <p style="font-size: 1.3em; color: #333; line-height: 1.8; margin-bottom: 40px;">
+                    You can invest 15-20 minutes per day for the next 5 days and get real, concrete evidence about your child's ability and commitment. Then make your decision based on facts, not fear.
+                </p>
+            </div>
+            
+            <div class="cta-box">
+                <h2>Start Your FREE Assessment Today</h2>
+                <p style="margin-bottom: 20px;">Day 1 arrives in your inbox immediately...</p>
+                
+                <!-- Mailchimp Form 2 -->
+                <form action="https://app.us17.list-manage.com/subscribe/post?u=83506bdc1b4e9598ba84cf727&amp;id=b222767eb6&amp;f_id=002e0ae3f0" method="post" id="signup-form-2" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                    <div class="form-group">
+                        <label for="mce-FNAME-2">Your First Name:</label>
+                        <input type="text" name="FNAME" id="mce-FNAME-2" placeholder="Enter your first name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mce-EMAIL-2">Your Email:</label>
+                        <input type="email" name="EMAIL" class="required email" id="mce-EMAIL-2" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <!-- Hidden Company field -->
+                    <input type="hidden" name="COMPANY" value="11+">
+                    
+                    <!-- Mailchimp honeypot -->
+                    <div class="mc-field-group hidden" aria-hidden="true">
+                        <input type="text" name="b_83506bdc1b4e9598ba84cf727_b222767eb6" tabindex="-1" value="">
+                    </div>
+                    
+                    <button type="submit" class="cta-button" name="subscribe" id="mc-embedded-subscribe-2">
+                        YES! SEND ME THE FREE CHALLENGE →
+                    </button>
+                    
+                    <p class="guarantee-text">
+                        🔒 100% Secure. Your information is safe with us.
+                    </p>
+                </form>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto; background: #f8f9fa; padding: 30px; border-radius: 15px; border: 3px solid #d4af37;">
+                <h3 style="color: #1b4332; margin-bottom: 15px; font-size: 1.5em;">⚠️ Important: This Is Your Starting Point</h3>
+                <p style="font-size: 1.1em; color: #333; margin-bottom: 15px;">
+                    <strong>This IS:</strong> The essential first step towards 11+ success. A fun, engaging reading challenge that gives you genuine insights into whether your child has foundational ability and can commit to a simple 15-20 minute daily routine.
+                </p>
+                <p style="font-size: 1.1em; color: #333;">
+                    <strong>This ISN'T:</strong> Complete 11+ preparation. But it IS the foundation you need before investing in tutors or intensive prep. IF your child completes all 5 days and engages with the questions, you'll know exactly which path will lead them towards passing – whether that's more independent practice, tutoring, or building core skills first.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="faq-section">
+        <div class="container">
+            <h2 class="section-title">
+                Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: Is this really free?</div>
+                <div class="faq-answer">
+                    A: Yes, absolutely! No credit card required, no hidden fees, no catches. We believe every parent deserves to assess their child's readiness before investing in expensive tutoring.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: What if my child can't complete all 5 days?</div>
+                <div class="faq-answer">
+                    A: That gives you valuable insight! If they can't commit to 15-20 minutes daily for just 5 days, it suggests they might not be quite ready for intensive 11+ prep yet. Better to discover this now than after investing thousands in tutoring.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: Will this tell me if I should hire a tutor?</div>
+                <div class="faq-answer">
+                    A: It gives you the insights you need to decide! By Day 5, you'll see: (1) if your child has foundational ability, (2) if they can maintain a learning routine, and (3) where their specific areas for development are. This clarity helps you make an informed tutoring decision.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: What if my child finds the questions challenging?</div>
+                <div class="faq-answer">
+                    A: Then you have insight that they need foundational work before tackling advanced 11+ content – saving you from investing in tutoring they're not quite ready for. You'll know to build basics first, or perhaps explore alternative school options.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: What if my child finds it quite manageable?</div>
+                <div class="faq-answer">
+                    A: That's wonderful insight! It suggests they have strong foundational skills and may not need extensive tutoring. You could continue with more challenges like this or use minimal tutor support just for exam technique and fine-tuning.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: Do I need to sit with my child during the challenge?</div>
+                <div class="faq-answer">
+                    A: We recommend checking in daily, but see how much they can do independently. This tells you their self-sufficiency level – crucial for knowing if they can work alone or need constant supervision (which affects your tutoring needs).
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: We're not sure if 11+ is right for our family. Is this still useful?</div>
+                <div class="faq-answer">
+                    A: This is PERFECT for you! The challenge is designed precisely to help families in this situation. After 5 days, you'll have concrete evidence to base your decision on rather than anxiety and guesswork.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Q: What happens after I sign up?</div>
+                <div class="faq-answer">
+                    A: You'll receive Day 1 immediately via email. Your child can start the adventure right away. Over the next 4 days, you'll receive each new chapter. By Day 5, you'll have clear insights into where you stand and what to do next. Plus you get all the parent guides and bonuses instantly.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="final-cta-section" style="background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); color: white;">
+        <div class="container">
+            <h2 style="color: white; font-size: 2.5em; margin-bottom: 20px;">
+                You Have Two Choices Right Now...
+            </h2>
+            
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; margin-bottom: 30px;">
+                    <h3 style="color: #d4af37; font-size: 1.8em; margin-bottom: 15px;">Option 1: Keep Guessing</h3>
+                    <p style="font-size: 1.2em;">
+                        Continue wondering if your child is capable. Delay making a decision about tutoring. Maybe invest thousands in the wrong approach. Risk discovering in September 2026 that you should have started earlier – or that you pushed them into something they weren't ready for.
+                    </p>
+                </div>
+                
+                <div style="background: #d4af37; color: #1b4332; padding: 30px; border-radius: 15px; margin-bottom: 40px;">
+                    <h3 style="font-size: 1.8em; margin-bottom: 15px;">Option 2: Take The First Step NOW</h3>
+                    <p style="font-size: 1.2em;">
+                        Begin your 11+ journey with confidence. Invest just 15-20 minutes per day to discover your child's true potential. Build the foundation for success by understanding their ability and commitment level. Make smart decisions about tutoring based on real insights. Start the path towards passing the 11+ with clarity and confidence.
+                    </p>
+                </div>
+                
+                <div class="cta-box">
+                    <h2>Start Your FREE Readiness Assessment</h2>
+                    <p style="margin-bottom: 20px;">In 5 days, you'll have the answers you need...</p>
+                    
+                    <!-- Mailchimp Form 3 -->
+                    <form action="https://app.us17.list-manage.com/subscribe/post?u=83506bdc1b4e9598ba84cf727&amp;id=b222767eb6&amp;f_id=002e0ae3f0" method="post" id="signup-form-3" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                        <div class="form-group">
+                            <label for="mce-FNAME-3">Your First Name:</label>
+                            <input type="text" name="FNAME" id="mce-FNAME-3" placeholder="Enter your first name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mce-EMAIL-3">Your Email:</label>
+                            <input type="email" name="EMAIL" class="required email" id="mce-EMAIL-3" placeholder="Enter your email address" required>
+                        </div>
+                        
+                        <!-- Hidden Company field -->
+                        <input type="hidden" name="COMPANY" value="11+">
+                        
+                        <!-- Mailchimp honeypot -->
+                        <div class="mc-field-group hidden" aria-hidden="true">
+                            <input type="text" name="b_83506bdc1b4e9598ba84cf727_b222767eb6" tabindex="-1" value="">
+                        </div>
+                        
+                        <button type="submit" class="cta-button" name="subscribe" id="mc-embedded-subscribe-3">
+                            YES! SEND ME DAY 1 NOW →
+                        </button>
+                        
+                        <p class="guarantee-text">
+                            Get instant access to Day 1 + all assessment tools and bonuses
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="container">
+            <p style="margin-bottom: 10px;">© 2024 Thornwood Manor Reading Challenge. All Rights Reserved.</p>
+            <p style="font-size: 0.9em; color: #d4af37;">Helping Year 5 Students Master the 11+ Since 2024</p>
+            <p style="margin-top: 20px; font-size: 0.8em;">
+                <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Privacy Policy</a> | 
+                <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
+                <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Add smooth scrolling for any anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
