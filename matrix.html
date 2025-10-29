@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor or No Tutor? Your Decision Matrix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #1b4332;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        
+        .intro-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #d4af37;
+            margin-bottom: 40px;
+        }
+        
+        .intro-box h2 {
+            color: #1b4332;
+            margin-bottom: 15px;
+        }
+        
+        .matrix-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            color: #1b4332;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .observation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .observation-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #d4af37;
+        }
+        
+        .observation-card h3 {
+            color: #1b4332;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .observation-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .observation-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .observation-card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        .decision-matrix {
+            background: white;
+            border: 3px solid #1b4332;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .matrix-header {
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .matrix-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .matrix-row:last-child {
+            border-bottom: none;
+        }
+        
+        .matrix-label {
+            background: #f8f9fa;
+            padding: 20px;
+            font-weight: bold;
+            color: #1b4332;
+            display: flex;
+            align-items: center;
+            border-right: 2px solid #e2e8f0;
+        }
+        
+        .matrix-content {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .recommendation {
+            background: linear-gradient(135deg, #d4af37 0%, #f0c747 100%);
+            color: #1b4332;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .recommendation h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .recommendation-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #d4af37;
+        }
+        
+        .recommendation-box h3 {
+            color: #1b4332;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .green-light {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        
+        .yellow-light {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        
+        .red-light {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        
+        .action-steps {
+            background: #1b4332;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        
+        .action-steps h3 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .action-steps ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .action-steps li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .action-steps li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .scenario-card {
+            padding: 25px;
+            border-radius: 10px;
+            color: white;
+        }
+        
+        .scenario-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .scenario-green {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        
+        .scenario-yellow {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        }
+        
+        .scenario-red {
+            background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+        }
+        
+        @media (max-width: 768px) {
+            .matrix-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .matrix-label {
+                border-right: none;
+                border-bottom: 2px solid #e2e8f0;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Tutor or No Tutor?</h1>
+        <p class="subtitle">Your Decision Framework After Completing The 5-Day Challenge</p>
+        
+        <div class="intro-box">
+            <h2>How To Use This Matrix</h2>
+            <p>After your child completes the 5-day Thornwood Manor Challenge, you'll have observed two critical factors:</p>
+            <br>
+            <p><strong>1. Their Performance</strong> – How well they answered the questions</p>
+            <p><strong>2. Their Commitment</strong> – Whether they completed all 5 days consistently</p>
+            <br>
+            <p>Use your observations to find your situation below and get clear guidance on whether tutoring makes sense RIGHT NOW.</p>
+        </div>
+        
+        <div class="matrix-section">
+            <h2 class="section-title">Step 1: Observe & Record</h2>
+            
+            <div class="observation-grid">
+                <div class="observation-card">
+                    <h3>📊 Performance Indicators</h3>
+                    <ul>
+                        <li>Got most questions right (70%+ correct)</li>
+                        <li>Got about half right (40-60% correct)</li>
+                        <li>Struggled with most (below 40% correct)</li>
+                        <li>Understood question types quickly</li>
+                        <li>Needed repeated explanations</li>
+                    </ul>
+                </div>
+                
+                <div class="observation-card">
+                    <h3>⏰ Commitment Indicators</h3>
+                    <ul>
+                        <li>Completed all 5 days without reminders</li>
+                        <li>Needed some encouragement</li>
+                        <li>Resisted or didn't finish</li>
+                        <li>Stayed focused for 15-20 minutes</li>
+                        <li>Got distracted easily</li>
+                    </ul>
+                </div>
+                
+                <div class="observation-card">
+                    <h3>😊 Engagement Indicators</h3>
+                    <ul>
+                        <li>Enjoyed the story and asked for more</li>
+                        <li>Neutral – did it without complaint</li>
+                        <li>Found it boring or frustrating</li>
+                        <li>Showed curiosity about answers</li>
+                        <li>Just wanted to finish quickly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="matrix-section">
+            <h2 class="section-title">Step 2: Find Your Scenario</h2>
+            
+            <div class="scenario-grid">
+                <div class="scenario-card scenario-green">
+                    <h4>🟢 Scenario A</h4>
+                    <p><strong>Performance:</strong> Got 60%+ of questions right</p>
+                    <p><strong>Commitment:</strong> Completed all 5 days</p>
+                    <p><strong>Engagement:</strong> Enjoyed it or neutral</p>
+                    <hr style="margin: 15px 0; opacity: 0.3;">
+                    <p style="font-size: 0.9em;">Your child has strong foundations and good discipline</p>
+                </div>
+                
+                <div class="scenario-card scenario-yellow">
+                    <h4>🟡 Scenario B</h4>
+                    <p><strong>Performance:</strong> Got 40-60% of questions right</p>
+                    <p><strong>Commitment:</strong> Completed all or most days</p>
+                    <p><strong>Engagement:</strong> Mixed feelings</p>
+                    <hr style="margin: 15px 0; opacity: 0.3;">
+                    <p style="font-size: 0.9em;">Your child has potential but needs targeted support</p>
+                </div>
+                
+                <div class="scenario-card scenario-yellow">
+                    <h4>🟡 Scenario C</h4>
+                    <p><strong>Performance:</strong> Got 60%+ of questions right</p>
+                    <p><strong>Commitment:</strong> Struggled to complete or needed lots of pushing</p>
+                    <p><strong>Engagement:</strong> Resistant or bored</p>
+                    <hr style="margin: 15px 0; opacity: 0.3;">
+                    <p style="font-size: 0.9em;">Your child has ability but motivation is the issue</p>
+                </div>
+                
+                <div class="scenario-card scenario-red">
+                    <h4>🔴 Scenario D</h4>
+                    <p><strong>Performance:</strong> Got less than 40% of questions right</p>
+                    <p><strong>Commitment:</strong> Any level</p>
+                    <p><strong>Engagement:</strong> Any level</p>
+                    <hr style="margin: 15px 0; opacity: 0.3;">
+                    <p style="font-size: 0.9em;">Your child needs foundational skills first</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="matrix-section">
+            <h2 class="section-title">Step 3: Get Your Recommendation</h2>
+            
+            <div class="recommendation-box green-light">
+                <h3>🟢 SCENARIO A: Continue Independently (No Tutor Needed Yet)</h3>
+                <p><strong>Why:</strong> Your child has demonstrated both ability and commitment. They can handle 11+ material and maintain a routine.</p>
+                <br>
+                <p><strong>Recommended Path:</strong></p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Continue with similar story-based challenges</li>
+                    <li>Introduce official 11+ practice papers (1-2 per week)</li>
+                    <li>Build vocabulary through reading</li>
+                    <li>Consider a tutor in 3-6 months ONLY if scores plateau</li>
+                </ul>
+                <br>
+                <p><strong>Save Money:</strong> You can likely prepare independently until closer to the exam (Spring 2026), saving £1,000-£3,000 in unnecessary early tutoring.</p>
+            </div>
+            
+            <div class="recommendation-box yellow-light">
+                <h3>🟡 SCENARIO B: Selective Tutoring (Strategic Support)</h3>
+                <p><strong>Why:</strong> Your child has potential but needs help with specific areas or technique refinement.</p>
+                <br>
+                <p><strong>Recommended Path:</strong></p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Continue independent practice for areas of strength</li>
+                    <li>Hire a tutor for 1 hour per week focusing ONLY on weak areas you identified</li>
+                    <li>Give the tutor a specific brief (e.g., "focus on verbal reasoning patterns and vocabulary")</li>
+                    <li>Re-evaluate every 6 weeks</li>
+                </ul>
+                <br>
+                <p><strong>Smart Spending:</strong> Targeted tutoring (£40-60/week) is far more effective than general tutoring (£80-120/week) when you know exactly what needs work.</p>
+            </div>
+            
+            <div class="recommendation-box yellow-light">
+                <h3>🟡 SCENARIO C: Address Motivation First (Hold Off on Tutoring)</h3>
+                <p><strong>Why:</strong> Your child CAN do the work but WON'T. A tutor won't fix motivation issues and may make things worse by creating pressure and resentment.</p>
+                <br>
+                <p><strong>Recommended Path:</strong></p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Have an honest conversation about whether THEY want to try for the 11+</li>
+                    <li>If yes, work on building intrinsic motivation before hiring a tutor</li>
+                    <li>Try reward systems for completing daily practice (not for scores)</li>
+                    <li>Make learning more game-like and less "school-like"</li>
+                    <li>Only hire a tutor once they're doing work willingly</li>
+                </ul>
+                <br>
+                <p><strong>Warning:</strong> Hiring a tutor when motivation is low often leads to: wasted money (£2,000+), family conflict, and damaged confidence. Fix motivation first.</p>
+            </div>
+            
+            <div class="recommendation-box red-light">
+                <h3>🔴 SCENARIO D: Build Foundations First (Not Ready for Tutoring Yet)</h3>
+                <p><strong>Why:</strong> Your child is struggling with basic comprehension and reasoning. They need foundational literacy skills before tackling 11+ content.</p>
+                <br>
+                <p><strong>Recommended Path:</strong></p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Focus on daily reading (20 minutes) at their current level</li>
+                    <li>Play word games (Scrabble, Boggle, crosswords)</li>
+                    <li>Watch educational videos together and discuss</li>
+                    <li>Consider a literacy tutor (NOT an 11+ tutor) to build core reading skills</li>
+                    <li>Re-assess in 3 months with another challenge or assessment</li>
+                </ul>
+                <br>
+                <p><strong>Honest Truth:</strong> Right now, an 11+ tutor would be working above your child's level and could damage their confidence. Build basics first, then decide if 11+ is the right path.</p>
+            </div>
+        </div>
+        
+        <div class="action-steps">
+            <h3>Your Action Plan</h3>
+            <p>Based on your scenario, here's what to do in the next 7 days:</p>
+            <br>
+            <ul>
+                <li><strong>Day 1-2:</strong> Review your observations from the challenge and identify which scenario fits your child</li>
+                <li><strong>Day 3:</strong> Have a conversation with your child about what they found easy/hard and whether they enjoyed it</li>
+                <li><strong>Day 4-5:</strong> Research your recommended path (find more challenges, research tutors in your area, look for reading programs, etc.)</li>
+                <li><strong>Day 6-7:</strong> Make your decision and take the first step on your chosen path</li>
+            </ul>
+        </div>
+        
+        <div class="recommendation">
+            <h3>💡 Key Insight</h3>
+            <p style="font-size: 1.1em;">The RIGHT time to hire a tutor is when your child has foundational ability AND willingness to work, but needs expert guidance to go from "good" to "excellent." Tutoring too early wastes money. Tutoring too late creates panic. This matrix helps you find the sweet spot.</p>
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-top: 40px; text-align: center;">
+            <h3 style="color: #1b4332; margin-bottom: 15px;">Still Unsure?</h3>
+            <p>If you're between scenarios or need more clarity, consider doing another reading challenge in 4-6 weeks to see if there's improvement. Progress (even small) is a great sign. No progress suggests you need to change your approach.</p>
+        </div>
+    </div>
+</body>
+</html>
