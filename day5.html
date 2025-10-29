@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 5: The Final Choice - 11+ Reading Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1b4332 0%, #d4af37 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .day-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .story-section {
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        
+        .story-title {
+            color: #d4af37;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .story-text {
+            font-size: 1.1em;
+            text-align: justify;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .story-text p {
+            margin-bottom: 15px;
+        }
+        
+        .vocab-word {
+            color: #d4af37;
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: 2px dotted #d4af37;
+            position: relative;
+        }
+        
+        .vocab-word:hover {
+            color: #f0c747;
+        }
+        
+        .definition {
+            display: none;
+            position: absolute;
+            background: #2d3748;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            width: 250px;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        
+        .definition::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: #2d3748;
+        }
+        
+        .ending {
+            background: linear-gradient(135deg, #d4af37 0%, #1b4332 100%);
+            color: white;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 10px;
+            font-size: 1.15em;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .questions-section {
+            padding: 40px;
+            background: white;
+        }
+        
+        .section-title {
+            color: #1b4332;
+            font-size: 1.6em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        
+        .question-card {
+            background: #f8f9fa;
+            border-left: 5px solid #d4af37;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .question-number {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+        
+        .question-type {
+            display: inline-block;
+            background: #d4af37;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            background: white;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .option:hover {
+            border-color: #d4af37;
+            background: #fffbf0;
+        }
+        
+        .option.selected {
+            border-color: #d4af37;
+            background: #fffbf0;
+        }
+        
+        .option.correct {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+        
+        .option.incorrect {
+            border-color: #f56565;
+            background: #fff5f5;
+        }
+        
+        .submit-btn {
+            background: #d4af37;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .submit-btn:hover {
+            background: #1b4332;
+        }
+        
+        .submit-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+        
+        .feedback {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .feedback.correct {
+            background: #f0fff4;
+            color: #2f855a;
+            border: 2px solid #48bb78;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background: #fff5f5;
+            color: #c53030;
+            border: 2px solid #f56565;
+            display: block;
+        }
+        
+        .footer {
+            background: #1b4332;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .progress-dot.active {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 The Secret of Thornwood Manor</h1>
+            <div class="day-badge">Day 5 of 5 - FINALE</div>
+        </div>
+        
+        <div class="story-section">
+            <h2 class="story-title">Chapter Five: The Final Choice</h2>
+            
+            <div class="story-text">
+                <p>Elara looked at the seventh box. Everyone in the vault was watching her—the five honest Circle members, Gran, Silas, and the snake woman who had tried to steal the Heart of Thornwood.</p>
+                
+                <p>"What will you do, young Reader?" the old man in the raven mask asked. "The Heart is yours to claim or to leave. The choice is yours alone."</p>
+                
+                <p>Elara's hands shook as she reached for the dusty box. When she touched it, warmth spread through her fingers. The box opened easily for her, and inside she saw a beautiful red <span class="vocab-word" onclick="toggleDefinition(this)">crystal<span class="definition">A clear, shiny rock or glass-like object</span></span> shaped like a heart. It glowed with its own light, pulsing like it was alive.</p>
+                
+                <p>Voices filled her mind again—not whispers this time, but clear words. The Heart was speaking to her. "I am power," it said. "I am knowledge. I am everything you could ever want. Take me, and you will never be <span class="vocab-word" onclick="toggleDefinition(this)">afraid<span class="definition">Feeling fear or worry</span></span> again. You will be strong. You will be special."</p>
+                
+                <p>It was <span class="vocab-word" onclick="toggleDefinition(this)">tempting<span class="definition">Attractive in a way that makes you want something</span></span>. Elara thought about how the other children at school sometimes made fun of her for being quiet, for spending time in the library, for being different. With the Heart's power, she could show them all. She could be powerful and important.</p>
+                
+                <p>But then she looked at Gran. Her grandmother's face was full of worry and love. And Elara remembered what Gran had said: "The Heart cannot be taken by force. It can only be given freely." But there was something else Gran had said too—that the power came with a terrible price.</p>
+                
+                <p>"What is the price?" Elara asked the Heart.</p>
+                
+                <p>The crystal's glow became darker. "To hold me, you must give up something you love. The last person who tried to claim me had to give up their family, their friends, their whole life outside these walls. They became <span class="vocab-word" onclick="toggleDefinition(this)">trapped<span class="definition">Unable to escape from a place</span></span> here forever, alone with their power."</p>
+                
+                <p>Elara looked around the vault. She saw the wolf, who <span class="vocab-word" onclick="toggleDefinition(this)">collected<span class="definition">Gathered things together</span></span> his old book of family stories. The fox, holding a painting of someone she loved. The owl, with a crystal ball that helped her see the truth. The stag, with a crown that <span class="vocab-word" onclick="toggleDefinition(this)">represented<span class="definition">Stood for or symbolized something</span></span> the kingdom he once ruled. Even the snake woman had come for power, willing to give up everything for it.</p>
+                
+                <p>But the raven—the old man smiled at her with kind eyes. "I came here fifty years ago, just like your grandmother," he said. "I faced the same choice. Do you know what I chose?"</p>
+                
+                <p>"You chose to leave the Heart," Elara said, understanding. "You chose your family and your life over power."</p>
+                
+                <p>"And I have never <span class="vocab-word" onclick="toggleDefinition(this)">regretted<span class="definition">Felt sorry about something you did or didn't do</span></span> it," he said. "True power isn't in magic objects, Elara. It's in the choices we make and the people we love. Your Reader gift is special enough. You don't need the Heart."</p>
+                
+                <p>Elara looked at the glowing crystal one more time. Part of her still wanted it. But a bigger part—the part that loved Gran, that loved her quiet life and her books and her own special way of seeing the world—knew what she had to do.</p>
+                
+                <p>"I choose to leave it here," Elara said clearly. She placed the Heart back in its box and closed the lid. "Some things are better left alone."</p>
+                
+                <p>The moment she closed the box, the whole vault began to shake. Light <span class="vocab-word" onclick="toggleDefinition(this)">burst<span class="definition">Broke open suddenly</span></span> from every corner. The snake woman screamed as invisible chains appeared around her, pulling her away into the shadows. "No! I need that power! Let me go!"</p>
+                
+                <p>"The vault always punishes those who come with lies in their hearts," the raven explained. "She will be held here until she learns what true power means."</p>
+                
+                <p>The shaking stopped. The remaining Circle members bowed to Elara. "You have proven yourself <span class="vocab-word" onclick="toggleDefinition(this)">worthy<span class="definition">Deserving respect or attention</span></span>," the wolf said. "The Heart of Thornwood will remain safe because of your wisdom."</p>
+                
+                <p>One by one, the masked figures left the vault, taking their treasures with them. Soon only Elara, Gran, and the raven remained.</p>
+                
+                <p>"You did well, child," the raven said. "Your grandmother would be proud—and I can see she is." He removed his mask completely and smiled. "Perhaps we'll meet again someday, when another choice needs to be made."</p>
+                
+                <p>Gran hugged Elara tightly. "I'm so proud of you. You passed a test I once failed. Fifty years ago, I wanted to take the Heart. It was the raven who stopped me, who showed me that some powers are too dangerous, even for good people."</p>
+                
+                <p>"So you came back to make sure I wouldn't make the same mistake?" Elara asked.</p>
+                
+                <p>"I came back to support you, whatever you chose," Gran said. "But I'm glad you chose wisely."</p>
+                
+                <p>As they left Thornwood Manor, the sun was rising. The old building looked less scary in the morning light—just an old house with an interesting history. As they drove away, Elara looked back one more time. She could have sworn she saw the raven standing in an upstairs window, waving goodbye.</p>
+                
+                <p>Back home, life returned to normal. Elara went to school, read her books, and listened to the whispers of old objects. But now she understood something important: being special wasn't about having power over others. It was about knowing yourself, making good choices, and loving the people who mattered.</p>
+                
+                <p>And whenever she felt scared or unsure, she remembered the Heart of Thornwood and the choice she'd made. She had turned down unlimited power because she knew that true strength came from within.</p>
+            </div>
+            
+            <div class="ending">
+                <strong>The End</strong><br><br>
+                You've completed all 5 days of the Thornwood Manor adventure! Well done, young reader. You've proven yourself worthy—just like Elara.
+            </div>
+        </div>
+        
+        <div class="questions-section">
+            <h2 class="section-title">📝 Comprehension & Verbal Reasoning Questions</h2>
+            
+            <!-- Question 1 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION</span>
+                <div class="question-number">Question 1</div>
+                <div class="question-text">What does Elara find in the seventh box?</div>
+                <div class="options" id="q1-options">
+                    <div class="option" onclick="selectOption('q1', 0, this)">A) A golden crown</div>
+                    <div class="option" onclick="selectOption('q1', 1, this)">B) The Heart of Thornwood - a red crystal</div>
+                    <div class="option" onclick="selectOption('q1', 2, this)">C) A magic book</div>
+                    <div class="option" onclick="selectOption('q1', 3, this)">D) Nothing - it's empty</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q1', 1)">Check Answer</button>
+                <div class="feedback" id="q1-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - SYNONYMS</span>
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Which word is closest in meaning to "tempting"?</div>
+                <div class="options" id="q2-options">
+                    <div class="option" onclick="selectOption('q2', 0, this)">A) Attractive</div>
+                    <div class="option" onclick="selectOption('q2', 1, this)">B) Boring</div>
+                    <div class="option" onclick="selectOption('q2', 2, this)">C) Frightening</div>
+                    <div class="option" onclick="selectOption('q2', 3, this)">D) Ugly</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q2', 0)">Check Answer</button>
+                <div class="feedback" id="q2-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - INFERENCE</span>
+                <div class="question-number">Question 3</div>
+                <div class="question-text">Why does Elara decide NOT to take the Heart of Thornwood?</div>
+                <div class="options" id="q3-options">
+                    <div class="option" onclick="selectOption('q3', 0, this)">A) She doesn't like red crystals</div>
+                    <div class="option" onclick="selectOption('q3', 1, this)">B) Someone told her not to take it</div>
+                    <div class="option" onclick="selectOption('q3', 2, this)">C) She realizes the price is too high - she would lose the people she loves</div>
+                    <div class="option" onclick="selectOption('q3', 3, this)">D) She's too scared to touch it</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q3', 2)">Check Answer</button>
+                <div class="feedback" id="q3-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - THEME</span>
+                <div class="question-number">Question 4</div>
+                <div class="question-text">What is the main lesson Elara learns?</div>
+                <div class="options" id="q4-options">
+                    <div class="option" onclick="selectOption('q4', 0, this)">A) Magic is dangerous</div>
+                    <div class="option" onclick="selectOption('q4', 1, this)">B) True strength comes from making good choices and loving people, not from power</div>
+                    <div class="option" onclick="selectOption('q4', 2, this)">C) Old houses are scary</div>
+                    <div class="option" onclick="selectOption('q4', 3, this)">D) Never trust people wearing masks</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q4', 1)">Check Answer</button>
+                <div class="feedback" id="q4-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - ANTONYMS</span>
+                <div class="question-number">Question 5</div>
+                <div class="question-text">What is the opposite of "worthy"?</div>
+                <div class="options" id="q5-options">
+                    <div class="option" onclick="selectOption('q5', 0, this)">A) Deserving</div>
+                    <div class="option" onclick="selectOption('q5', 1, this)">B) Unworthy</div>
+                    <div class="option" onclick="selectOption('q5', 2, this)">C) Special</div>
+                    <div class="option" onclick="selectOption('q5', 3, this)">D) Important</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q5', 1)">Check Answer</button>
+                <div class="feedback" id="q5-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - CHARACTER</span>
+                <div class="question-number">Question 6</div>
+                <div class="question-text">What happens to the snake woman at the end?</div>
+                <div class="options" id="q6-options">
+                    <div class="option" onclick="selectOption('q6', 0, this)">A) She escapes with treasure</div>
+                    <div class="option" onclick="selectOption('q6', 1, this)">B) She apologizes and leaves</div>
+                    <div class="option" onclick="selectOption('q6', 2, this)">C) She is trapped in the vault by invisible chains as punishment</div>
+                    <div class="option" onclick="selectOption('q6', 3, this)">D) She takes the Heart of Thornwood</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q6', 2)">Check Answer</button>
+                <div class="feedback" id="q6-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 8 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - WORD MEANINGS</span>
+                <div class="question-number">Question 7</div>
+                <div class="question-text">What does "regretted" mean?</div>
+                <div class="options" id="q7-options">
+                    <div class="option" onclick="selectOption('q7', 0, this)">A) Felt happy about a decision</div>
+                    <div class="option" onclick="selectOption('q7', 1, this)">B) Felt sorry about something you did or didn't do</div>
+                    <div class="option" onclick="selectOption('q7', 2, this)">C) Forgot about something</div>
+                    <div class="option" onclick="selectOption('q7', 3, this)">D) Remembered something clearly</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q7', 1)">Check Answer</button>
+                <div class="feedback" id="q7-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - CAUSE AND EFFECT</span>
+                <div class="question-number">Question 8</div>
+                <div class="question-text">What would have happened if Elara had taken the Heart of Thornwood?</div>
+                <div class="options" id="q8-options">
+                    <div class="option" onclick="selectOption('q8', 0, this)">A) Nothing would change</div>
+                    <div class="option" onclick="selectOption('q8', 1, this)">B) She would become queen</div>
+                    <div class="option" onclick="selectOption('q8', 2, this)">C) She would gain power but lose her family and friends, becoming trapped forever</div>
+                    <div class="option" onclick="selectOption('q8', 3, this)">D) Everyone would celebrate</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q8', 2)">Check Answer</button>
+                <div class="feedback" id="q8-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - DETAILS</span>
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Who helped Gran make the right choice fifty years ago?</div>
+                <div class="options" id="q9-options">
+                    <div class="option" onclick="selectOption('q9', 0, this)">A) The wolf</div>
+                    <div class="option" onclick="selectOption('q9', 1, this)">B) The snake</div>
+                    <div class="option" onclick="selectOption('q9', 2, this)">C) The raven</div>
+                    <div class="option" onclick="selectOption('q9', 3, this)">D) Elara</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q9', 2)">Check Answer</button>
+                <div class="feedback" id="q9-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>🎉 Congratulations! You've completed all 5 days! 🎉</strong></p>
+            <p>You've followed Elara's journey from the mysterious letter to her final choice. Well done, reader!</p>
+            <div class="progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedAnswers = {};
+        
+        function toggleDefinition(element) {
+            const definition = element.querySelector('.definition');
+            const allDefinitions = document.querySelectorAll('.definition');
+            
+            allDefinitions.forEach(def => {
+                if (def !== definition) {
+                    def.style.display = 'none';
+                }
+            });
+            
+            if (definition.style.display === 'block') {
+                definition.style.display = 'none';
+            } else {
+                definition.style.display = 'block';
+            }
+        }
+        
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.vocab-word')) {
+                document.querySelectorAll('.definition').forEach(def => {
+                    def.style.display = 'none';
+                });
+            }
+        });
+        
+        function selectOption(questionId, optionIndex, element) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionId] = optionIndex;
+        }
+        
+        function checkAnswer(questionId, correctAnswer) {
+            const feedback = document.getElementById(`${questionId}-feedback`);
+            const options = document.getElementById(`${questionId}-options`).querySelectorAll('.option');
+            const submitBtn = event.target;
+            
+            if (selectedAnswers[questionId] === undefined) {
+                alert('Please select an answer first!');
+                return;
+            }
+            
+            const selectedIndex = selectedAnswers[questionId];
+            
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+                if (index === selectedIndex && index !== correctAnswer) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            submitBtn.disabled = true;
+            
+            const explanations = {
+                'q1': {
+                    correct: '✓ Correct! The text says "inside she saw a beautiful red crystal shaped like a heart" - the Heart of Thornwood.',
+                    incorrect: '✗ Not quite. Look at what Elara finds: "a beautiful red crystal shaped like a heart" - the Heart of Thornwood.'
+                },
+                'q2': {
+                    correct: '✓ Excellent! Tempting means something is attractive or appealing in a way that makes you want it.',
+                    incorrect: '✗ Try again. Tempting means something attracts you or makes you want it.'
+                },
+                'q3': {
+                    correct: '✓ Perfect! Elara realizes the Heart requires her to "give up something you love" - family, friends, and her whole life. She values her loved ones more than power.',
+                    incorrect: '✗ Consider what the Heart tells her: to hold it, she must give up "something you love" including family and friends, and become "trapped here forever, alone with their power."'
+                },
+                'q4': {
+                    correct: '✓ Brilliant! The story\'s message is that "True power isn\'t in magic objects... It\'s in the choices we make and the people we love." Being special is about "knowing yourself, making good choices, and loving the people who mattered."',
+                    incorrect: '✗ Think about what the raven teaches and what Elara learns: true power comes from the choices we make and the people we love, not from magic.'
+                },
+                'q5': {
+                    correct: '✓ Correct! Worthy means deserving respect or being good enough. Unworthy is the opposite - not deserving or not good enough.',
+                    incorrect: '✗ Worthy means deserving of respect or attention. The opposite would be UNWORTHY - not deserving.'
+                },
+                'q6': {
+                    correct: '✓ Excellent! The text says "invisible chains appeared around her, pulling her away into the shadows" and "She will be held here until she learns what true power means."',
+                    incorrect: '✗ Look at what happens: "invisible chains appeared around her" and she is held in the vault as punishment for coming "with lies in their hearts."'
+                },
+                'q7': {
+                    correct: '✓ Perfect! Regretted means feeling sorry or sad about something you did or a choice you made.',
+                    incorrect: '✗ Not quite. To regret something means to feel sorry about a decision or action you took.'
+                },
+                'q8': {
+                    correct: '✓ Excellent understanding! The Heart explains that to hold it, you must "give up something you love" - family, friends, your whole life - and become "trapped here forever, alone with their power."',
+                    incorrect: '✗ Remember what the Heart says about the price: the person must give up their family, friends, and life outside, becoming trapped forever and alone.'
+                },
+                'q9': {
+                    correct: '✓ Perfect! Gran says "Fifty years ago, I wanted to take the Heart. It was the raven who stopped me, who showed me that some powers are too dangerous."',
+                    incorrect: '✗ Look at what Gran tells Elara: "It was the raven who stopped me" fifty years ago when she wanted to take the Heart.'
+                }
+            };
+            
+            if (selectedIndex === correctAnswer) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = explanations[questionId].correct;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = explanations[questionId].incorrect;
+            }
+        }
+    </script>
+</body>
+</html>
