@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1: The Secret of Thornwood Manor - 11+ Reading Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1b4332 0%, #d4af37 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .day-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .story-section {
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        
+        .story-title {
+            color: #d4af37;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .story-text {
+            font-size: 1.1em;
+            text-align: justify;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .story-text p {
+            margin-bottom: 15px;
+        }
+        
+        .vocab-word {
+            color: #d4af37;
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: 2px dotted #d4af37;
+            position: relative;
+        }
+        
+        .vocab-word:hover {
+            color: #f0c747;
+        }
+        
+        .definition {
+            display: none;
+            position: absolute;
+            background: #2d3748;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            width: 250px;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        
+        .definition::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: #2d3748;
+        }
+        
+        .cliffhanger {
+            background: linear-gradient(135deg, #d4af37 0%, #1b4332 100%);
+            color: white;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            font-style: italic;
+            font-size: 1.15em;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .questions-section {
+            padding: 40px;
+            background: white;
+        }
+        
+        .section-title {
+            color: #1b4332;
+            font-size: 1.6em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        
+        .question-card {
+            background: #f8f9fa;
+            border-left: 5px solid #d4af37;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .question-number {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+        
+        .question-type {
+            display: inline-block;
+            background: #d4af37;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            background: white;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .option:hover {
+            border-color: #d4af37;
+            background: #fffbf0;
+        }
+        
+        .option.selected {
+            border-color: #d4af37;
+            background: #fffbf0;
+        }
+        
+        .option.correct {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+        
+        .option.incorrect {
+            border-color: #f56565;
+            background: #fff5f5;
+        }
+        
+        .submit-btn {
+            background: #d4af37;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .submit-btn:hover {
+            background: #1b4332;
+        }
+        
+        .submit-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+        
+        .feedback {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .feedback.correct {
+            background: #f0fff4;
+            color: #2f855a;
+            border: 2px solid #48bb78;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background: #fff5f5;
+            color: #c53030;
+            border: 2px solid #f56565;
+            display: block;
+        }
+        
+        .footer {
+            background: #1b4332;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .progress-dot.active {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 The Secret of Thornwood Manor</h1>
+            <div class="day-badge">Day 1 of 5</div>
+        </div>
+        
+        <div class="story-section">
+            <h2 class="story-title">Chapter One: The Letter</h2>
+            
+            <div class="story-text">
+                <p>The envelope arrived on a Tuesday morning. It looked quite ordinary except for the wax seal on the back. Twelve-year-old Elara traced her finger over the deep red wax. She could feel a raised pattern of a raven holding a key in its claws. Her grandmother's name was written in beautiful handwriting across the front: <em>Mrs. Celeste Blackwood</em>.</p>
+                
+                <p>"Gran, there's a letter for you!" Elara called. Her grandmother was already coming down the narrow staircase. Her face looked <span class="vocab-word" onclick="toggleDefinition(this)">serious<span class="definition">Not joking; showing that something is important or worrying</span></span>.</p>
+                
+                <p>"I've been <span class="vocab-word" onclick="toggleDefinition(this)">expecting<span class="definition">Thinking or believing that something will happen</span></span> that," Gran said quietly. She took the envelope with shaking fingers. She broke the seal and read in silence. Her face grew paler as she read.</p>
+                
+                <p>"What is it, Gran?" Elara asked.</p>
+                
+                <p>Her grandmother folded the letter and slipped it into her cardigan pocket. "Pack a bag, dear. We're going on a trip."</p>
+                
+                <p>"A trip? Where?"</p>
+                
+                <p>"Thornwood Manor." Gran's voice was barely more than a whisper. "I hoped I'd never have to return there, but it seems I have no choice. And <span class="vocab-word" onclick="toggleDefinition(this)">interestingly<span class="definition">In a way that attracts your attention because it is unusual or exciting</span></span>, they've asked that you come too."</p>
+                
+                <p>Elara had never heard of Thornwood Manor, but the name itself sent a strange shiver down her spine. As she packed her bag, questions filled her mind. Why did Gran look so worried? What was at Thornwood Manor? And why would anyone want <em>her</em> to come?</p>
+                
+                <p>They set off that very afternoon. The journey took them deep into the countryside, along <span class="vocab-word" onclick="toggleDefinition(this)">winding<span class="definition">Having many turns or bends; not straight</span></span> roads that seemed to lead nowhere. The landscape grew wilder with each passing mile. Trees bent like old people in the wind, and the <span class="vocab-word" onclick="toggleDefinition(this)">moors<span class="definition">Large open areas of high land, usually covered with grass and heather</span></span> stretched out like an empty, brown sea.</p>
+                
+                <p>"Tell me about Thornwood Manor," Elara said, breaking the long silence.</p>
+                
+                <p>Gran kept her eyes on the road. "It's a place where people keep secrets. Fifty years ago, when I was your age, I visited Thornwood Manor for the first time. What happened there... well, it changed my life forever. I thought that chapter was closed. But now they're calling me back."</p>
+                
+                <p>"Who's calling you back?"</p>
+                
+                <p>"The Circle." Gran's hands tightened on the steering wheel. "That's all you need to know for now."</p>
+                
+                <p>As the sun began to set, Thornwood Manor finally appeared. It rose from the hillside like a dark giant. It was bigger than Elara had imagined—huge and made of grey stone that looked almost black in the fading light. Towers reached toward the darkening sky. The windows looked like dark eyes watching them approach. Strange stone creatures sat along the roof edges, and ivy climbed up the walls like reaching hands.</p>
+                
+                <p>When they got out of the car, the enormous wooden doors swung open by themselves. A tall, thin man in a perfect black suit stood in the doorway.</p>
+                
+                <p>"Mrs. Blackwood," he said in a voice that sounded smooth but cold. "The Circle has been waiting. You are the last to arrive." He looked at Elara, and surprise showed on his face for just a moment. "But you've brought the child. How... <span class="vocab-word" onclick="toggleDefinition(this)">unexpected<span class="definition">Not expected; surprising</span></span>."</p>
+                
+                <p>Gran's hand tightened on Elara's shoulder. "Where I go, my <span class="vocab-word" onclick="toggleDefinition(this)">granddaughter<span class="definition">The daughter of your son or daughter</span></span> goes. Those are my terms, Silas."</p>
+                
+                <p>The man—Silas—looked at them for a long moment before stepping aside. "Very well. But know this: once you cross this <span class="vocab-word" onclick="toggleDefinition(this)">threshold<span class="definition">The entrance to a building or room</span></span>, there is no turning back. Not until the ritual is complete."</p>
+            </div>
+            
+            <div class="cliffhanger">
+                As Elara stepped into the dark hallway, she heard the doors slam shut behind her with a sound like thunder. In the flickering candlelight, she could see six other figures standing in a circle. They all wore masks shaped like different animals. They turned to face her as one, and a voice echoed through the hall: "Let the game begin."
+            </div>
+        </div>
+        
+        <div class="questions-section">
+            <h2 class="section-title">📝 Comprehension & Verbal Reasoning Questions</h2>
+            
+            <!-- Question 1 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION</span>
+                <div class="question-number">Question 1</div>
+                <div class="question-text">Why did Gran's face look serious when she saw the letter?</div>
+                <div class="options" id="q1-options">
+                    <div class="option" onclick="selectOption('q1', 0, this)">A) She was happy to receive it</div>
+                    <div class="option" onclick="selectOption('q1', 1, this)">B) She had been expecting it and was worried about what it meant</div>
+                    <div class="option" onclick="selectOption('q1', 2, this)">C) She didn't recognize the handwriting</div>
+                    <div class="option" onclick="selectOption('q1', 3, this)">D) She thought it was junk mail</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q1', 1)">Check Answer</button>
+                <div class="feedback" id="q1-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - SYNONYMS</span>
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Which word is closest in meaning to "winding"?</div>
+                <div class="options" id="q2-options">
+                    <div class="option" onclick="selectOption('q2', 0, this)">A) Straight</div>
+                    <div class="option" onclick="selectOption('q2', 1, this)">B) Short</div>
+                    <div class="option" onclick="selectOption('q2', 2, this)">C) Twisting</div>
+                    <div class="option" onclick="selectOption('q2', 3, this)">D) Fast</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q2', 2)">Check Answer</button>
+                <div class="feedback" id="q2-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - ANALYSIS</span>
+                <div class="question-number">Question 3</div>
+                <div class="question-text">How does the author make Thornwood Manor seem scary and mysterious?</div>
+                <div class="options" id="q3-options">
+                    <div class="option" onclick="selectOption('q3', 0, this)">A) By describing it as small and friendly</div>
+                    <div class="option" onclick="selectOption('q3', 1, this)">B) By comparing it to a dark giant with window "eyes" and ivy like "reaching hands"</div>
+                    <div class="option" onclick="selectOption('q3', 2, this)">C) By saying it was painted bright colors</div>
+                    <div class="option" onclick="selectOption('q3', 3, this)">D) By describing happy people outside</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q3', 1)">Check Answer</button>
+                <div class="feedback" id="q3-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - ANALOGIES</span>
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Raven is to key as owl is to ____</div>
+                <div class="options" id="q4-options">
+                    <div class="option" onclick="selectOption('q4', 0, this)">A) Book</div>
+                    <div class="option" onclick="selectOption('q4', 1, this)">B) Night</div>
+                    <div class="option" onclick="selectOption('q4', 2, this)">C) Wisdom</div>
+                    <div class="option" onclick="selectOption('q4', 3, this)">D) Mouse</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q4', 2)">Check Answer</button>
+                <div class="feedback" id="q4-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - INFERENCE</span>
+                <div class="question-number">Question 5</div>
+                <div class="question-text">What can we infer about what happened at Thornwood Manor fifty years ago?</div>
+                <div class="options" id="q5-options">
+                    <div class="option" onclick="selectOption('q5', 0, this)">A) It was a fun party</div>
+                    <div class="option" onclick="selectOption('q5', 1, this)">B) Something important and possibly scary happened that changed Gran's life</div>
+                    <div class="option" onclick="selectOption('q5', 2, this)">C) Nothing important happened</div>
+                    <div class="option" onclick="selectOption('q5', 3, this)">D) Gran got lost there</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q5', 1)">Check Answer</button>
+                <div class="feedback" id="q5-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - ANTONYMS</span>
+                <div class="question-number">Question 6</div>
+                <div class="question-text">What is the opposite of "expected"?</div>
+                <div class="options" id="q6-options">
+                    <div class="option" onclick="selectOption('q6', 0, this)">A) Predicted</div>
+                    <div class="option" onclick="selectOption('q6', 1, this)">B) Anticipated</div>
+                    <div class="option" onclick="selectOption('q6', 2, this)">C) Unexpected</div>
+                    <div class="option" onclick="selectOption('q6', 3, this)">D) Planned</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q6', 2)">Check Answer</button>
+                <div class="feedback" id="q6-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - CHARACTER</span>
+                <div class="question-number">Question 7</div>
+                <div class="question-text">Why does Silas say bringing Elara is "unexpected"?</div>
+                <div class="options" id="q7-options">
+                    <div class="option" onclick="selectOption('q7', 0, this)">A) He likes surprises</div>
+                    <div class="option" onclick="selectOption('q7', 1, this)">B) The Circle hadn't planned for a child to come</div>
+                    <div class="option" onclick="selectOption('q7', 2, this)">C) He doesn't know who Elara is</div>
+                    <div class="option" onclick="selectOption('q7', 3, this)">D) He forgot Gran had a granddaughter</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q7', 1)">Check Answer</button>
+                <div class="feedback" id="q7-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 8 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - SEQUENCES</span>
+                <div class="question-number">Question 8</div>
+                <div class="question-text">Put these events in the correct order: 1) They arrive at Thornwood Manor 2) Gran receives a letter 3) They see six masked figures 4) They drive through the moors</div>
+                <div class="options" id="q8-options">
+                    <div class="option" onclick="selectOption('q8', 0, this)">A) 1, 2, 3, 4</div>
+                    <div class="option" onclick="selectOption('q8', 1, this)">B) 2, 4, 1, 3</div>
+                    <div class="option" onclick="selectOption('q8', 2, this)">C) 4, 2, 1, 3</div>
+                    <div class="option" onclick="selectOption('q8', 3, this)">D) 2, 1, 4, 3</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q8', 1)">Check Answer</button>
+                <div class="feedback" id="q8-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Well done on completing Day 1!</strong></p>
+            <p>Return tomorrow to discover what happens next at Thornwood Manor...</p>
+            <div class="progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedAnswers = {};
+        
+        function toggleDefinition(element) {
+            const definition = element.querySelector('.definition');
+            const allDefinitions = document.querySelectorAll('.definition');
+            
+            allDefinitions.forEach(def => {
+                if (def !== definition) {
+                    def.style.display = 'none';
+                }
+            });
+            
+            if (definition.style.display === 'block') {
+                definition.style.display = 'none';
+            } else {
+                definition.style.display = 'block';
+            }
+        }
+        
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.vocab-word')) {
+                document.querySelectorAll('.definition').forEach(def => {
+                    def.style.display = 'none';
+                });
+            }
+        });
+        
+        function selectOption(questionId, optionIndex, element) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionId] = optionIndex;
+        }
+        
+        function checkAnswer(questionId, correctAnswer) {
+            const feedback = document.getElementById(`${questionId}-feedback`);
+            const options = document.getElementById(`${questionId}-options`).querySelectorAll('.option');
+            const submitBtn = event.target;
+            
+            if (selectedAnswers[questionId] === undefined) {
+                alert('Please select an answer first!');
+                return;
+            }
+            
+            const selectedIndex = selectedAnswers[questionId];
+            
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+                if (index === selectedIndex && index !== correctAnswer) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            submitBtn.disabled = true;
+            
+            const explanations = {
+                'q1': {
+                    correct: '✓ Correct! Gran said "I\'ve been expecting that" and her face grew paler as she read, showing she was worried about the contents of the letter.',
+                    incorrect: '✗ Not quite. When Gran\'s face looked "serious", it showed she knew the letter contained something important or worrying. She had been expecting it.'
+                },
+                'q2': {
+                    correct: '✓ Excellent! "Winding" means twisting or curving - roads that don\'t go straight.',
+                    incorrect: '✗ Try again. "Winding" describes something that twists and turns rather than going in a straight line. The winding roads had lots of curves.'
+                },
+                'q3': {
+                    correct: '✓ Perfect! The author uses descriptive language to make the manor seem alive and threatening—it "rose like a dark giant," windows looked like "dark eyes watching," and ivy climbed "like reaching hands."',
+                    incorrect: '✗ Look at the descriptions: it "rose like a dark giant," windows like "dark eyes," ivy like "reaching hands." These create a mysterious and threatening atmosphere.'
+                },
+                'q4': {
+                    correct: '✓ Well reasoned! The raven on the seal holds a key, which is a symbol. Owls are traditionally symbols of wisdom in stories and legends.',
+                    incorrect: '✗ Think about the relationship. The raven holds a KEY (its symbolic function). Owls traditionally symbolize WISDOM.'
+                },
+                'q5': {
+                    correct: '✓ Excellent inference! Gran says "What happened there... it changed my life forever" and she "hoped I\'d never have to return there," which suggests something serious and life-changing occurred.',
+                    incorrect: '✗ Consider the context: Gran says it "changed my life forever" and she hoped to never return. This suggests something important and possibly scary happened.'
+                },
+                'q6': {
+                    correct: '✓ Correct! Expected means something you thought would happen. Unexpected means something you didn\'t think would happen—the opposite.',
+                    incorrect: '✗ Expected means you thought something would happen. The opposite would be UNexpected - not thinking it would happen.'
+                },
+                'q7': {
+                    correct: '✓ Brilliant! Silas\'s surprise and his comment that it\'s "unexpected" shows that the Circle only invited Gran and didn\'t plan for Elara to come along.',
+                    incorrect: '✗ Consider why Silas would be surprised. The Circle hadn\'t planned for a child to come - they only expected Gran.'
+                },
+                'q8': {
+                    correct: '✓ Perfect sequencing! First, Gran receives the letter (2). Then they drive through the moors (4). Next, they arrive at Thornwood Manor (1). Finally, inside they see the six masked figures (3).',
+                    incorrect: '✗ Trace the story carefully: First the letter arrives, then they travel through the moors, then they arrive at Thornwood, and finally they see the masked figures inside.'
+                }
+            };
+            
+            if (selectedIndex === correctAnswer) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = explanations[questionId].correct;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = explanations[questionId].incorrect;
+            }
+        }
+    </script>
+</body>
+</html>
