@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4: The Vault of Secrets - 11+ Reading Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1b4332 0%, #d4af37 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .day-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .story-section {
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        
+        .story-title {
+            color: #d4af37;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .story-text {
+            font-size: 1.1em;
+            text-align: justify;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .story-text p {
+            margin-bottom: 15px;
+        }
+        
+        .vocab-word {
+            color: #d4af37;
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: 2px dotted #d4af37;
+            position: relative;
+        }
+        
+        .vocab-word:hover {
+            color: #f0c747;
+        }
+        
+        .definition {
+            display: none;
+            position: absolute;
+            background: #2d3748;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            width: 250px;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        
+        .definition::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: #2d3748;
+        }
+        
+        .cliffhanger {
+            background: linear-gradient(135deg, #d4af37 0%, #1b4332 100%);
+            color: white;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            font-style: italic;
+            font-size: 1.15em;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .questions-section {
+            padding: 40px;
+            background: white;
+        }
+        
+        .section-title {
+            color: #1b4332;
+            font-size: 1.6em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        
+        .question-card {
+            background: #f8f9fa;
+            border-left: 5px solid #d4af37;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .question-number {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+        
+        .question-type {
+            display: inline-block;
+            background: #d4af37;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            background: white;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .option:hover {
+            border-color: #d4af37;
+            background: #fffbf0;
+        }
+        
+        .option.selected {
+            border-color: #d4af37;
+            background: #fffbf0;
+        }
+        
+        .option.correct {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+        
+        .option.incorrect {
+            border-color: #f56565;
+            background: #fff5f5;
+        }
+        
+        .submit-btn {
+            background: #d4af37;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .submit-btn:hover {
+            background: #1b4332;
+        }
+        
+        .submit-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+        
+        .feedback {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .feedback.correct {
+            background: #f0fff4;
+            color: #2f855a;
+            border: 2px solid #48bb78;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background: #fff5f5;
+            color: #c53030;
+            border: 2px solid #f56565;
+            display: block;
+        }
+        
+        .footer {
+            background: #1b4332;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .progress-dot.active {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 The Secret of Thornwood Manor</h1>
+            <div class="day-badge">Day 4 of 5</div>
+        </div>
+        
+        <div class="story-section">
+            <h2 class="story-title">Chapter Four: The Vault of Secrets</h2>
+            
+            <div class="story-text">
+                <p>Elara stared at the three doors. The warning voice had disappeared into the shadows, but its words stayed in her mind. Someone in the Circle had lied. But who?</p>
+                
+                <p>She thought about each masked figure. The wolf had been the first to speak—strong and <span class="vocab-word" onclick="toggleDefinition(this)">confident<span class="definition">Feeling sure about your abilities</span></span>. The owl seemed wise and knowing. The fox sounded cheerful but perhaps too cheerful? The snake's voice had been cold and threatening. The stag and raven had said very little.</p>
+                
+                <p>Then Elara remembered something. When Silas brought the silver key, he said the vault held "something very important to each member of the Circle." But the letter that brought Gran here—it had the raven seal. The same symbol from the wax.</p>
+                
+                <p>"The black door," Elara said clearly. "I choose the present. Because the answer to who is lying is here, right now, not in the past or future."</p>
+                
+                <p>The black stone door began to glow with a soft silver light. It swung open without making any sound. Beyond it lay a long <span class="vocab-word" onclick="toggleDefinition(this)">corridor<span class="definition">A long passage in a building with rooms on either side</span></span> lined with more burning candles. At the end stood another door—this one made of solid gold with the same raven-and-key symbol carved into it.</p>
+                
+                <p>Elara walked forward. Her footsteps echoed in the silence. When she reached the golden door, she placed her hand on it. At once, the door felt warm under her palm, and whispers filled her ears—hundreds of voices all talking at once. Her Reader gift was <span class="vocab-word" onclick="toggleDefinition(this)">reacting<span class="definition">Responding to something</span></span> to the door.</p>
+                
+                <p>The voices grew louder, and suddenly Elara could understand them. They were memories—stories trapped in the gold itself. She saw flashes of the past: Gran as a young girl, standing in this very spot. The six masked figures from fifty years ago. And something else... a <span class="vocab-word" onclick="toggleDefinition(this)">betrayal<span class="definition">Being disloyal to someone who trusts you</span></span>. One of the Circle members from Gran's time had tried to <span class="vocab-word" onclick="toggleDefinition(this)">steal<span class="definition">Take something that doesn't belong to you</span></span> something from the vault. Gran had stopped them, but at a great cost.</p>
+                
+                <p>"So that's why you came back," Elara whispered. "You made a <span class="vocab-word" onclick="toggleDefinition(this)">promise<span class="definition">A statement that you will definitely do something</span></span> to return when the time was right."</p>
+                
+                <p>She took the silver key from her pocket. As she put it in the lock, she felt the door's magic flow through her. The door opened, and golden light <span class="vocab-word" onclick="toggleDefinition(this)">flooded<span class="definition">Covered or filled completely</span></span> out.</p>
+                
+                <p>Inside the vault was a round room with six stone boxes arranged in a circle. Each box had a different symbol matching the masks: wolf, fox, owl, raven, snake, and stag. In the center stood a seventh box—larger than the others and covered in dust.</p>
+                
+                <p>Elara heard footsteps behind her. The six masked figures entered the vault one by one, with Gran and Silas following. Each member walked to their box and opened it. The wolf pulled out an old book. The fox took a small painting. The owl lifted out a crystal ball. The stag <span class="vocab-word" onclick="toggleDefinition(this)">removed<span class="definition">Took away or took off</span></span> a golden crown.</p>
+                
+                <p>But the raven stood still, not moving toward their box. And the snake... the snake was walking toward the seventh box in the center.</p>
+                
+                <p>"Stop!" Elara shouted. "That box isn't yours!"</p>
+                
+                <p>The snake froze. Slowly, the figure removed their mask. It was a woman with sharp eyes and a cold smile. "Clever girl. Yes, I am not here for what the Circle thinks. I am here for something far more <span class="vocab-word" onclick="toggleDefinition(this)">valuable<span class="definition">Worth a lot of money or very important</span></span>—the Heart of Thornwood. An object that can give unlimited power to whoever holds it."</p>
+                
+                <p>"But that power comes with a terrible price," Gran said, stepping forward. "I learned that fifty years ago when someone else tried to take it. The Heart cannot be taken by force. It can only be given freely."</p>
+                
+                <p>The woman laughed. "Then I'll take it by force anyway." She reached for the seventh box.</p>
+                
+                <p>But as her fingers touched it, the box began to glow bright red. The woman screamed and jumped back. "What is this?!"</p>
+                
+                <p>"Protection magic," the raven said, finally speaking. The figure removed their mask to show an old man with kind eyes. "Elara is the true keeper now. Only she can open that box. That was always the test—not just to solve riddles, but to choose wisely and see the truth."</p>
+            </div>
+            
+            <div class="cliffhanger">
+                Elara stood before the seventh box, the Heart of Thornwood waiting inside. What would she find? And what choice would she have to make tomorrow?
+            </div>
+        </div>
+        
+        <div class="questions-section">
+            <h2 class="section-title">📝 Comprehension & Verbal Reasoning Questions</h2>
+            
+            <!-- Question 1 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION</span>
+                <div class="question-number">Question 1</div>
+                <div class="question-text">Which door does Elara choose?</div>
+                <div class="options" id="q1-options">
+                    <div class="option" onclick="selectOption('q1', 0, this)">A) The silver door (past)</div>
+                    <div class="option" onclick="selectOption('q1', 1, this)">B) The gold door (future)</div>
+                    <div class="option" onclick="selectOption('q1', 2, this)">C) The black door (present)</div>
+                    <div class="option" onclick="selectOption('q1', 3, this)">D) She doesn't choose any door</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q1', 2)">Check Answer</button>
+                <div class="feedback" id="q1-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - SYNONYMS</span>
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Which word is closest in meaning to "confident"?</div>
+                <div class="options" id="q2-options">
+                    <div class="option" onclick="selectOption('q2', 0, this)">A) Nervous</div>
+                    <div class="option" onclick="selectOption('q2', 1, this)">B) Sure</div>
+                    <div class="option" onclick="selectOption('q2', 2, this)">C) Worried</div>
+                    <div class="option" onclick="selectOption('q2', 3, this)">D) Confused</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q2', 1)">Check Answer</button>
+                <div class="feedback" id="q2-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - INFERENCE</span>
+                <div class="question-number">Question 3</div>
+                <div class="question-text">Why does Elara choose the black door representing the present?</div>
+                <div class="options" id="q3-options">
+                    <div class="option" onclick="selectOption('q3', 0, this)">A) It's the prettiest door</div>
+                    <div class="option" onclick="selectOption('q3', 1, this)">B) Someone told her to choose it</div>
+                    <div class="option" onclick="selectOption('q3', 2, this)">C) She believes the answer to who is lying is in the present, not the past or future</div>
+                    <div class="option" onclick="selectOption('q3', 3, this)">D) It's the only door that will open</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q3', 2)">Check Answer</button>
+                <div class="feedback" id="q3-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION</span>
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Who is revealed as the liar?</div>
+                <div class="options" id="q4-options">
+                    <div class="option" onclick="selectOption('q4', 0, this)">A) The wolf</div>
+                    <div class="option" onclick="selectOption('q4', 1, this)">B) The snake</div>
+                    <div class="option" onclick="selectOption('q4', 2, this)">C) The raven</div>
+                    <div class="option" onclick="selectOption('q4', 3, this)">D) Gran</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q4', 1)">Check Answer</button>
+                <div class="feedback" id="q4-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - ANTONYMS</span>
+                <div class="question-number">Question 5</div>
+                <div class="question-text">What is the opposite of "valuable"?</div>
+                <div class="options" id="q5-options">
+                    <div class="option" onclick="selectOption('q5', 0, this)">A) Worthless</div>
+                    <div class="option" onclick="selectOption('q5', 1, this)">B) Expensive</div>
+                    <div class="option" onclick="selectOption('q5', 2, this)">C) Important</div>
+                    <div class="option" onclick="selectOption('q5', 3, this)">D) Precious</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q5', 0)">Check Answer</button>
+                <div class="feedback" id="q5-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - INFERENCE</span>
+                <div class="question-number">Question 6</div>
+                <div class="question-text">What does Elara discover happened fifty years ago?</div>
+                <div class="options" id="q6-options">
+                    <div class="option" onclick="selectOption('q6', 0, this)">A) Gran had a party at Thornwood Manor</div>
+                    <div class="option" onclick="selectOption('q6', 1, this)">B) Someone betrayed the Circle and tried to steal from the vault</div>
+                    <div class="option" onclick="selectOption('q6', 2, this)">C) The vault was built</div>
+                    <div class="option" onclick="selectOption('q6', 3, this)">D) Nothing important happened</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q6', 1)">Check Answer</button>
+                <div class="feedback" id="q6-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 8 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - ODD ONE OUT</span>
+                <div class="question-number">Question 7</div>
+                <div class="question-text">Which item was NOT taken from one of the six boxes?</div>
+                <div class="options" id="q7-options">
+                    <div class="option" onclick="selectOption('q7', 0, this)">A) A book</div>
+                    <div class="option" onclick="selectOption('q7', 1, this)">B) A painting</div>
+                    <div class="option" onclick="selectOption('q7', 2, this)">C) A sword</div>
+                    <div class="option" onclick="selectOption('q7', 3, this)">D) A crystal ball</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q7', 2)">Check Answer</button>
+                <div class="feedback" id="q7-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - CAUSE AND EFFECT</span>
+                <div class="question-number">Question 8</div>
+                <div class="question-text">What happens when the snake woman tries to touch the seventh box?</div>
+                <div class="options" id="q8-options">
+                    <div class="option" onclick="selectOption('q8', 0, this)">A) The box opens easily</div>
+                    <div class="option" onclick="selectOption('q8', 1, this)">B) Nothing happens</div>
+                    <div class="option" onclick="selectOption('q8', 2, this)">C) The box glows red and she has to jump back</div>
+                    <div class="option" onclick="selectOption('q8', 3, this)">D) The box disappears</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q8', 2)">Check Answer</button>
+                <div class="feedback" id="q8-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - SIMILAR MEANINGS</span>
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Which word means the same as "corridor"?</div>
+                <div class="options" id="q9-options">
+                    <div class="option" onclick="selectOption('q9', 0, this)">A) Room</div>
+                    <div class="option" onclick="selectOption('q9', 1, this)">B) Hallway</div>
+                    <div class="option" onclick="selectOption('q9', 2, this)">C) Door</div>
+                    <div class="option" onclick="selectOption('q9', 3, this)">D) Window</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q9', 1)">Check Answer</button>
+                <div class="feedback" id="q9-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Well done on completing Day 4!</strong></p>
+            <p>Return tomorrow for the thrilling conclusion...</p>
+            <div class="progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedAnswers = {};
+        
+        function toggleDefinition(element) {
+            const definition = element.querySelector('.definition');
+            const allDefinitions = document.querySelectorAll('.definition');
+            
+            allDefinitions.forEach(def => {
+                if (def !== definition) {
+                    def.style.display = 'none';
+                }
+            });
+            
+            if (definition.style.display === 'block') {
+                definition.style.display = 'none';
+            } else {
+                definition.style.display = 'block';
+            }
+        }
+        
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.vocab-word')) {
+                document.querySelectorAll('.definition').forEach(def => {
+                    def.style.display = 'none';
+                });
+            }
+        });
+        
+        function selectOption(questionId, optionIndex, element) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionId] = optionIndex;
+        }
+        
+        function checkAnswer(questionId, correctAnswer) {
+            const feedback = document.getElementById(`${questionId}-feedback`);
+            const options = document.getElementById(`${questionId}-options`).querySelectorAll('.option');
+            const submitBtn = event.target;
+            
+            if (selectedAnswers[questionId] === undefined) {
+                alert('Please select an answer first!');
+                return;
+            }
+            
+            const selectedIndex = selectedAnswers[questionId];
+            
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+                if (index === selectedIndex && index !== correctAnswer) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            submitBtn.disabled = true;
+            
+            const explanations = {
+                'q1': {
+                    correct: '✓ Correct! Elara says "The black door. I choose the present."',
+                    incorrect: '✗ Not quite. Elara chooses the black stone door, which represents the present.'
+                },
+                'q2': {
+                    correct: '✓ Excellent! Confident means feeling sure about your abilities - the same as being sure of yourself.',
+                    incorrect: '✗ Try again. Confident means feeling certain or sure about something.'
+                },
+                'q3': {
+                    correct: '✓ Perfect! Elara reasons that "the answer to who is lying is here, right now, not in the past or future."',
+                    incorrect: '✗ Consider Elara\'s reasoning. She says the answer to who is lying must be in the present, not the past or future.'
+                },
+                'q4': {
+                    correct: '✓ Excellent! The snake removes their mask to reveal they are lying about why they came - they want the Heart of Thornwood for its power.',
+                    incorrect: '✗ Look at who tries to take the seventh box that doesn\'t belong to them. The snake is revealed as the liar.'
+                },
+                'q5': {
+                    correct: '✓ Correct! Valuable means worth a lot or very important. Worthless is the opposite - having no value.',
+                    incorrect: '✗ Valuable means something is worth a lot. The opposite would be WORTHLESS - having no value.'
+                },
+                'q6': {
+                    correct: '✓ Brilliant! Through her Reader ability, Elara sees memories of "a betrayal. One of the Circle members from Gran\'s time had tried to steal something from the vault."',
+                    incorrect: '✗ Think about what Elara\'s Reader gift shows her in the memories. Someone betrayed the Circle fifty years ago.'
+                },
+                'q7': {
+                    correct: '✓ Perfect! The story mentions a book, painting, crystal ball, and crown being taken from boxes. No sword is mentioned.',
+                    incorrect: '✗ Review what each person took: wolf (book), fox (painting), owl (crystal ball), stag (crown). Which item is NOT in this list?'
+                },
+                'q8': {
+                    correct: '✓ Excellent! The text says "the box began to glow bright red. The woman screamed and jumped back."',
+                    incorrect: '✗ Look at what happens when the snake woman touches the box: it glows red and protection magic stops her.'
+                },
+                'q9': {
+                    correct: '✓ Perfect! A corridor is a long passage in a building - the same as a hallway.',
+                    incorrect: '✗ Not quite. A corridor is another word for a HALLWAY - a long passage connecting rooms.'
+                }
+            };
+            
+            if (selectedIndex === correctAnswer) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = explanations[questionId].correct;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = explanations[questionId].incorrect;
+            }
+        }
+    </script>
+</body>
+</html>
