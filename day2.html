@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 2: The Circle of Masks - 11+ Reading Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1b4332 0%, #d4af37 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .day-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .story-section {
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        
+        .story-title {
+            color: #d4af37;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .story-text {
+            font-size: 1.1em;
+            text-align: justify;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .story-text p {
+            margin-bottom: 15px;
+        }
+        
+        .vocab-word {
+            color: #d4af37;
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: 2px dotted #d4af37;
+            position: relative;
+        }
+        
+        .vocab-word:hover {
+            color: #f0c747;
+        }
+        
+        .definition {
+            display: none;
+            position: absolute;
+            background: #2d3748;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            width: 250px;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        
+        .definition::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: #2d3748;
+        }
+        
+        .cliffhanger {
+            background: linear-gradient(135deg, #d4af37 0%, #1b4332 100%);
+            color: white;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            font-style: italic;
+            font-size: 1.15em;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .questions-section {
+            padding: 40px;
+            background: white;
+        }
+        
+        .section-title {
+            color: #1b4332;
+            font-size: 1.6em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        
+        .question-card {
+            background: #f8f9fa;
+            border-left: 5px solid #d4af37;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .question-number {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+        
+        .question-type {
+            display: inline-block;
+            background: #d4af37;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            background: white;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .option:hover {
+            border-color: #d4af37;
+            background: #fffbf0;
+        }
+        
+        .option.selected {
+            border-color: #d4af37;
+            background: #fffbf0;
+        }
+        
+        .option.correct {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+        
+        .option.incorrect {
+            border-color: #f56565;
+            background: #fff5f5;
+        }
+        
+        .submit-btn {
+            background: #d4af37;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .submit-btn:hover {
+            background: #1b4332;
+        }
+        
+        .submit-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+        
+        .feedback {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .feedback.correct {
+            background: #f0fff4;
+            color: #2f855a;
+            border: 2px solid #48bb78;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background: #fff5f5;
+            color: #c53030;
+            border: 2px solid #f56565;
+            display: block;
+        }
+        
+        .footer {
+            background: #1b4332;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .progress-dot.active {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 The Secret of Thornwood Manor</h1>
+            <div class="day-badge">Day 2 of 5</div>
+        </div>
+        
+        <div class="story-section">
+            <h2 class="story-title">Chapter Two: The Circle of Masks</h2>
+            
+            <div class="story-text">
+                <p>The candlelight made strange moving shadows across the marble floor. Six masked figures stood very still in a circle. Each mask was different: a wolf with silver teeth, a fox with golden eyes, an owl with blue jewels, a black raven, a snake with green scales, and a stag with gold antlers.</p>
+                
+                <p>"Welcome to the Circle of Thornwood," a voice said. Elara couldn't see who was speaking. "You have all been called here because you each have something we need. A gift. A secret. A <span class="vocab-word" onclick="toggleDefinition(this)">debt<span class="definition">Something owed to someone else</span></span> to be paid."</p>
+                
+                <p>Gran's hand held Elara's shoulder tighter. "I know why you've called me here, but my <span class="vocab-word" onclick="toggleDefinition(this)">granddaughter<span class="definition">The daughter of your son or daughter</span></span> has nothing to do with this. She's just a child."</p>
+                
+                <p>"No," said the figure in the wolf mask, stepping forward. His voice was deep and strong. "The young Miss Blackwood is exactly why we have <span class="vocab-word" onclick="toggleDefinition(this)">gathered<span class="definition">Come together in one place</span></span> tonight. We knew she would come—it had to happen."</p>
+                
+                <p>Elara felt her heart beat faster. "What do you mean? I don't understand any of this."</p>
+                
+                <p>The figure in the owl mask moved closer. She walked smoothly and quietly. "Tell us, child, have you noticed anything... unusual about yourself? Dreams that feel too real? Can you find lost things? Perhaps you hear whispers when no one else does?"</p>
+                
+                <p>Elara's breath stopped. How could they know about the whispers? She had never told anyone, not even Gran. The soft voices that seemed to come from old books and <span class="vocab-word" onclick="toggleDefinition(this)">ancient<span class="definition">Very old</span></span> objects, telling her secrets and stories.</p>
+                
+                <p>"I see from your face that you understand," the owl said, sounding pleased. "You are a Reader, Elara Blackwood. Someone who can hear the memories in objects. It is a rare gift—and we need it."</p>
+                
+                <p>Silas appeared from the shadows carrying a soft cushion. On it lay a beautiful silver key. Its handle was shaped like two snakes twisted together. "This key opens the Thornwood <span class="vocab-word" onclick="toggleDefinition(this)">Vault<span class="definition">A secure underground room</span></span>," he explained in his cold voice. "Inside is something very important to each member of the Circle. But the vault has a strange magic—only someone of Blackwood blood, someone who has never crossed this <span class="vocab-word" onclick="toggleDefinition(this)">threshold<span class="definition">Doorway or entrance</span></span> before, can turn the key."</p>
+                
+                <p>"And that's where you come in, my dear," said the fox. Her voice was cheerful but strange. "Your <span class="vocab-word" onclick="toggleDefinition(this)">grandmother<span class="definition">Your parent's mother</span></span> came here fifty years ago and turned the key then. But the vault can only be opened once per <span class="vocab-word" onclick="toggleDefinition(this)">generation<span class="definition">People born around the same time</span></span>. You are the next Blackwood. You are the key to our future—or our end."</p>
+                
+                <p>Gran stepped in front of Elara to protect her. "And what happens after she opens the vault? How do I know she'll be safe?"</p>
+                
+                <p>The snake mask tilted. Its wearer's voice was a low hiss. "The game has rules, Mrs. Blackwood. Once the vault is opened, each of us gets what we came for. But there is a test—something Miss Elara must do first. Only if she passes the test can we enter the vault. If she fails..." The snake paused. "Well, none of us leave Thornwood Manor. Ever."</p>
+            </div>
+            
+            <div class="cliffhanger">
+                As Elara looked at the six masked figures watching her, one question filled her mind: What was this test, and what would happen if she failed?
+            </div>
+        </div>
+        
+        <div class="questions-section">
+            <h2 class="section-title">📝 Comprehension & Verbal Reasoning Questions</h2>
+            
+            <!-- Question 1 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION</span>
+                <div class="question-number">Question 1</div>
+                <div class="question-text">What special ability does Elara have?</div>
+                <div class="options" id="q1-options">
+                    <div class="option" onclick="selectOption('q1', 0, this)">A) She can see in the dark</div>
+                    <div class="option" onclick="selectOption('q1', 1, this)">B) She can hear memories in objects</div>
+                    <div class="option" onclick="selectOption('q1', 2, this)">C) She can talk to animals</div>
+                    <div class="option" onclick="selectOption('q1', 3, this)">D) She can fly</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q1', 1)">Check Answer</button>
+                <div class="feedback" id="q1-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - SYNONYMS</span>
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Which word is closest in meaning to "ancient"?</div>
+                <div class="options" id="q2-options">
+                    <div class="option" onclick="selectOption('q2', 0, this)">A) New</div>
+                    <div class="option" onclick="selectOption('q2', 1, this)">B) Modern</div>
+                    <div class="option" onclick="selectOption('q2', 2, this)">C) Very old</div>
+                    <div class="option" onclick="selectOption('q2', 3, this)">D) Broken</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q2', 2)">Check Answer</button>
+                <div class="feedback" id="q2-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - INFERENCE</span>
+                <div class="question-number">Question 3</div>
+                <div class="question-text">Why had Elara never told anyone about the whispers she hears?</div>
+                <div class="options" id="q3-options">
+                    <div class="option" onclick="selectOption('q3', 0, this)">A) She forgot about them</div>
+                    <div class="option" onclick="selectOption('q3', 1, this)">B) She thought they weren't real</div>
+                    <div class="option" onclick="selectOption('q3', 2, this)">C) She didn't want people to think she was strange</div>
+                    <div class="option" onclick="selectOption('q3', 3, this)">D) Gran told her not to tell anyone</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q3', 2)">Check Answer</button>
+                <div class="feedback" id="q3-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - ANALOGIES</span>
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Wolf is to pack as owl is to ____</div>
+                <div class="options" id="q4-options">
+                    <div class="option" onclick="selectOption('q4', 0, this)">A) Flock</div>
+                    <div class="option" onclick="selectOption('q4', 1, this)">B) Parliament</div>
+                    <div class="option" onclick="selectOption('q4', 2, this)">C) Herd</div>
+                    <div class="option" onclick="selectOption('q4', 3, this)">D) Swarm</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q4', 1)">Check Answer</button>
+                <div class="feedback" id="q4-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION</span>
+                <div class="question-number">Question 5</div>
+                <div class="question-text">What will happen if Elara fails the test?</div>
+                <div class="options" id="q5-options">
+                    <div class="option" onclick="selectOption('q5', 0, this)">A) She will have to try again tomorrow</div>
+                    <div class="option" onclick="selectOption('q5', 1, this)">B) Nothing will happen</div>
+                    <div class="option" onclick="selectOption('q5', 2, this)">C) No one will be able to leave Thornwood Manor</div>
+                    <div class="option" onclick="selectOption('q5', 3, this)">D) The masks will break</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q5', 2)">Check Answer</button>
+                <div class="feedback" id="q5-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - ANTONYMS</span>
+                <div class="question-number">Question 6</div>
+                <div class="question-text">What is the opposite of "gathered"?</div>
+                <div class="options" id="q6-options">
+                    <div class="option" onclick="selectOption('q6', 0, this)">A) Collected</div>
+                    <div class="option" onclick="selectOption('q6', 1, this)">B) Scattered</div>
+                    <div class="option" onclick="selectOption('q6', 2, this)">C) Met</div>
+                    <div class="option" onclick="selectOption('q6', 3, this)">D) Grouped</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q6', 1)">Check Answer</button>
+                <div class="feedback" id="q6-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - INFERENCE</span>
+                <div class="question-number">Question 7</div>
+                <div class="question-text">Why did Gran come to Thornwood Manor fifty years ago?</div>
+                <div class="options" id="q7-options">
+                    <div class="option" onclick="selectOption('q7', 0, this)">A) For a holiday</div>
+                    <div class="option" onclick="selectOption('q7', 1, this)">B) To visit friends</div>
+                    <div class="option" onclick="selectOption('q7', 2, this)">C) To open the vault for the previous generation</div>
+                    <div class="option" onclick="selectOption('q7', 3, this)">D) To work there</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q7', 2)">Check Answer</button>
+                <div class="feedback" id="q7-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+            
+            <!-- Question 8 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - ODD ONE OUT</span>
+                <div class="question-number">Question 8</div>
+                <div class="question-text">Which animal mask doesn't fit with the others?</div>
+                <div class="options" id="q8-options">
+                    <div class="option" onclick="selectOption('q8', 0, this)">A) Fox</div>
+                    <div class="option" onclick="selectOption('q8', 1, this)">B) Owl</div>
+                    <div class="option" onclick="selectOption('q8', 2, this)">C) Stag</div>
+                    <div class="option" onclick="selectOption('q8', 3, this)">D) Wolf</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q8', 1)">Check Answer</button>
+                <div class="feedback" id="q8-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - CAUSE AND EFFECT</span>
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Why can't Gran open the vault this time?</div>
+                <div class="options" id="q9-options">
+                    <div class="option" onclick="selectOption('q9', 0, this)">A) She's too old</div>
+                    <div class="option" onclick="selectOption('q9', 1, this)">B) She's lost the key</div>
+                    <div class="option" onclick="selectOption('q9', 2, this)">C) She already opened it fifty years ago</div>
+                    <div class="option" onclick="selectOption('q9', 3, this)">D) She's forgotten how</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q9', 2)">Check Answer</button>
+                <div class="feedback" id="q9-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - SIMILAR MEANINGS</span>
+                <div class="question-number">Question 10</div>
+                <div class="question-text">Which word means the same as "threshold"?</div>
+                <div class="options" id="q10-options">
+                    <div class="option" onclick="selectOption('q10', 0, this)">A) Window</div>
+                    <div class="option" onclick="selectOption('q10', 1, this)">B) Entrance</div>
+                    <div class="option" onclick="selectOption('q10', 2, this)">C) Exit</div>
+                    <div class="option" onclick="selectOption('q10', 3, this)">D) Roof</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q10', 1)">Check Answer</button>
+                <div class="feedback" id="q10-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-card">
+                <span class="question-type">COMPREHENSION - OVERALL UNDERSTANDING</span>
+                <div class="question-number">Question 11</div>
+                <div class="question-text">What is the main problem in this chapter?</div>
+                <div class="options" id="q11-options">
+                    <div class="option" onclick="selectOption('q11', 0, this)">A) Elara has lost her key</div>
+                    <div class="option" onclick="selectOption('q11', 1, this)">B) Elara must pass a test to open the vault, or no one can leave</div>
+                    <div class="option" onclick="selectOption('q11', 2, this)">C) Gran doesn't want to be at Thornwood Manor</div>
+                    <div class="option" onclick="selectOption('q11', 3, this)">D) The masks are frightening</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q11', 1)">Check Answer</button>
+                <div class="feedback" id="q11-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card">
+                <span class="question-type">VERBAL REASONING - WORD MEANINGS</span>
+                <div class="question-number">Question 12</div>
+                <div class="question-text">If VAULT means a secure underground room, which other meaning can this word have?</div>
+                <div class="options" id="q12-options">
+                    <div class="option" onclick="selectOption('q12', 0, this)">A) To jump over something</div>
+                    <div class="option" onclick="selectOption('q12', 1, this)">B) To dig a hole</div>
+                    <div class="option" onclick="selectOption('q12', 2, this)">C) To open a door</div>
+                    <div class="option" onclick="selectOption('q12', 3, this)">D) To climb a ladder</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('q12', 0)">Check Answer</button>
+                <div class="feedback" id="q12-feedback">
+                    <div class="explanation"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Well done on completing Day 2!</strong></p>
+            <p>Return tomorrow to discover what test Elara must face...</p>
+            <div class="progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedAnswers = {};
+        
+        function toggleDefinition(element) {
+            const definition = element.querySelector('.definition');
+            const allDefinitions = document.querySelectorAll('.definition');
+            
+            allDefinitions.forEach(def => {
+                if (def !== definition) {
+                    def.style.display = 'none';
+                }
+            });
+            
+            if (definition.style.display === 'block') {
+                definition.style.display = 'none';
+            } else {
+                definition.style.display = 'block';
+            }
+        }
+        
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.vocab-word')) {
+                document.querySelectorAll('.definition').forEach(def => {
+                    def.style.display = 'none';
+                });
+            }
+        });
+        
+        function selectOption(questionId, optionIndex, element) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswers[questionId] = optionIndex;
+        }
+        
+        function checkAnswer(questionId, correctAnswer) {
+            const feedback = document.getElementById(`${questionId}-feedback`);
+            const options = document.getElementById(`${questionId}-options`).querySelectorAll('.option');
+            const submitBtn = event.target;
+            
+            if (selectedAnswers[questionId] === undefined) {
+                alert('Please select an answer first!');
+                return;
+            }
+            
+            const selectedIndex = selectedAnswers[questionId];
+            
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+                if (index === selectedIndex && index !== correctAnswer) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            submitBtn.disabled = true;
+            
+            const explanations = {
+                'q1': {
+                    correct: '✓ Correct! The text says Elara is "a Reader" who "can hear the memories in objects" - she hears "soft voices that seemed to come from old books and ancient objects, telling her secrets and stories."',
+                    incorrect: '✗ Not quite. The owl explains that Elara is a "Reader" - someone who can hear memories embedded in objects. This is her special ability.'
+                },
+                'q2': {
+                    correct: '✓ Excellent! Ancient means something from a very long time ago - very old.',
+                    incorrect: '✗ Try again. Ancient means something that is very old, from long ago in the past.'
+                },
+                'q3': {
+                    correct: '✓ Perfect inference! The text shows Elara is surprised the Circle knows about her whispers since "She had never told anyone, not even Gran." This suggests she kept it secret because it made her different.',
+                    incorrect: '✗ Consider why someone might keep a secret like this. Elara "had never told anyone, not even Gran" about the whispers, suggesting she worried people would think she was strange or different.'
+                },
+                'q4': {
+                    correct: '✓ Well done! A group of wolves is called a pack. A group of owls is called a parliament. (Flock is for birds like starlings, herd is for animals like cows, and swarm is for insects.)',
+                    incorrect: '✗ Think about collective nouns. A group of wolves is a PACK. What is the collective noun for owls? It\'s a PARLIAMENT.'
+                },
+                'q5': {
+                    correct: '✓ Excellent! The snake says "If she fails... none of us leave Thornwood Manor. Ever."',
+                    incorrect: '✗ Look at what the snake says at the end: if Elara fails the test, "none of us leave Thornwood Manor. Ever."'
+                },
+                'q6': {
+                    correct: '✓ Correct! Gathered means to come together in one place. Scattered means to spread out in different directions - the opposite.',
+                    incorrect: '✗ Gathered means coming together. The opposite would be SCATTERED - spreading apart in different directions.'
+                },
+                'q7': {
+                    correct: '✓ Brilliant! The fox says "Your grandmother came here fifty years ago and turned the key then. But the vault can only be opened once per generation." This tells us Gran was the Blackwood who opened the vault for her generation.',
+                    incorrect: '✗ Consider what the fox says: Gran "came here fifty years ago and turned the key." The vault can only be opened once per generation, so Gran opened it for her generation.'
+                },
+                'q8': {
+                    correct: '✓ Perfect! The fox, stag, and wolf are all mammals. The owl is a bird, making it different from the others.',
+                    incorrect: '✗ Think about animal types. Fox, stag, and wolf are all MAMMALS. Which one is a BIRD?'
+                },
+                'q9': {
+                    correct: '✓ Excellent! The vault can "only be opened once per generation." Since Gran opened it fifty years ago, someone from the next generation (Elara) must open it now.',
+                    incorrect: '✗ Look at what the fox explains: the vault can only be opened "once per generation." Gran already opened it in her generation, so now Elara must do it.'
+                },
+                'q10': {
+                    correct: '✓ Perfect! A threshold is a doorway or entrance to a building or room.',
+                    incorrect: '✗ Not quite. Threshold means the doorway or entrance to a place - where you cross from outside to inside.'
+                },
+                'q11': {
+                    correct: '✓ Excellent understanding! The main tension is that Elara must complete a test successfully. If she fails, "none of us leave Thornwood Manor. Ever." This creates the central problem for the story.',
+                    incorrect: '✗ Think about the biggest conflict. Elara must pass a test to open the vault. If she fails, no one can leave Thornwood Manor.'
+                },
+                'q12': {
+                    correct: '✓ Brilliant! Vault has two meanings: 1) a secure underground room (as in the story), and 2) to jump or leap over something (like an athlete vaulting over a bar).',
+                    incorrect: '✗ Vault is a word with multiple meanings. Besides being a secure room, it also means to JUMP or LEAP over something.'
+                }
+            };
+            
+            if (selectedIndex === correctAnswer) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = explanations[questionId].correct;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = explanations[questionId].incorrect;
+            }
+        }
+    </script>
+</body>
+</html>
